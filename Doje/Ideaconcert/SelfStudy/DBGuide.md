@@ -10,7 +10,9 @@
 
 ![[ê·¸ë¦¼ 3-1-1] ë°ì´í° íì¤í ìë¯¸](http://www.dbguide.net/publishing/img/dbguide/edu/070103_edu_01.gif)
 
-참고: :bookmark_tabs:[http://www.dbguide.net/db.db?cmd=view&boardUid=12803&boardConfigUid=9&categoryUid=216&boardIdx=30&boardStep=1]
+참고: [:bookmark_tabs:](http://www.dbguide.net/db.db?cmd=view&boardUid=12803&boardConfigUid=9&categoryUid=216&boardIdx=30&boardStep=1)
+
+
 
 ### 1-2. 데이터 모델링
 
@@ -32,5 +34,18 @@
 
 * 엔터티(Entity): 
 
-참고: :bookmark_tabs:[http://www.dbguide.net/db.db?cmd=view&boardUid=12733&boardConfigUid=9&boardIdx=31&boardStep=1]
+참고: [:bookmark_tabs:](http://www.dbguide.net/db.db?cmd=view&boardUid=12733&boardConfigUid=9&boardIdx=31&boardStep=1)
+
+
+
+### 1-3. DB설계와 이용
+
+#### 1-3-1. 저장공간 설계
+
+테이블 : 데이터의 저장 형태, 파티션 여부, 유지 기간 등으로 다양하게 구분 가능하다
+
+* Heap-Organized Table: 테이블 안에서 로우의 저장위치 -> 특정 속성 값 의존X, 로우가 삽입될 때 결정
+* Clustered Index Table: PK나 인덱스 키의 순서로 데이터가 저장되는 테이블
+* Partitioned Table: 테이블을 나눔으로서 성능 저하 방지, 파티션 키를 어떻게 구성하느냐에 따라 효율성이 달라진다.
+* External Table: 외부 파일을 데이터베이스 안에 일반 테이블 형태로 
 
