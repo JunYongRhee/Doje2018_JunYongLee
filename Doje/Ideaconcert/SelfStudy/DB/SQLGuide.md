@@ -135,3 +135,113 @@ select 컬럼명1,컬럼명2 from 테이블명;
 | -             | 빼기                                                         |
 | \|\|          | 합성연산자, 문자와 문자를 연결할 수 있다.                    |
 
+****
+
+## 4. TCL
+
+### 4-1. 트랜젝션(TRANSACTION)
+
+트랜젝션: 데이터베이스의 논리적 연산단위, 밀접히 관련되어 분리 불가한 한개 이상의 DB 조작을 의미한다
+
+![sqlê°ì´ë](http://www.dbguide.net/publishing/img/knowledge/SQL_170.jpg)
+
+
+
+### 4-2. COMMIT
+
+입력, 수정 또는 삭제된 자료에 대해서 전혀 문제가 없다고 판단되었을 경우 COMMIT 명령어를 통해 트랜젝션을 완료 할 수 있다.
+
+~~~sql
+Oracle INSERT INTO PLAYER (PLAYER_ID, TEAM_ID, PLAYER_NAME, POSITION, HEIGHT, WEIGHT, BACK_NO) VALUES ('1997035', 'K02', '이운재', 'GK', 182, 82, 1);
+COMMIT;
+~~~
+
+COMMIT 명령어는 이처럼 INSERT 문장, UPDATE 문장, DELETE 문장을 사용한 후에 이런 변경 작업이 완료되었음을 데이터베이스에 알려 주기 위해 사용한다.
+
+
+
+### 4-2. ROLLBACK
+
+롤백(ROLLBACK)은 데이터 변경 사항이 취소되어 데이터의 이전 상태로 복구되며, 관련된 행에 대한 잠금(LOCKING)이 풀리고 다른 사용자들이 데이터 변경을 할 수 있게 된다.
+
+~~~sql
+Oracle INSERT INTO PLAYER (PLAYER_ID, TEAM_ID, PLAYER_NAME, POSITION, HEIGHT, WEIGHT, BACK_NO) VALUES ('1999035', 'K02', '이운재', 'GK', 182, 82, 1);
+ROLLBACK;
+~~~
+
+
+
+COMMIT과 ROLLBACK을 사용하면 다음과 같은 효과를 기대할 수 있다.
+
+* 데이터 무결성 보장 
+* 영구적인 변경을 하기 전에 데이터의 변경 사항 확인 가능
+* 논리적으로 연관된 작업을 그룹핑하여 처리 가능
+
+
+
+### 4-3. SAVEPOINT
+
+현 시점에서 SAVEPOINT까지 트랜젝션의 일부만 롤백할 수 있다 -> 복잡한 대규모 트랜잭션에서 에러가 발생했을 때 SAVEPOINT까지의 트랜잭션만 롤백하고 실패한 부분에 대해서만 다시 실행할 수 있다. 
+
+
+
+~~~mysql
+SAVEPOINT SVPT1;
+~~~
+
+저장점까지 롤백할 때는 ROLLBACK 뒤에 저장점 명을 지정한다.
+
+~~~mysql
+ROLLBACK TO SVPT1;
+~~~
+
+
+
+ROLLBACK의 원리:
+
+![sqlê°ì´ë](http://www.dbguide.net/publishing/img/knowledge/SQL_171.jpg)
+
+****
+
+## 5. DCL
+
+### 5-1. GRANT&REVOKE
+
+Grant는 권한을 부여할 때 사용한다.
+
+~~~mysql
+GRANT privilege [, privilege ...]
+TO user [, user.... | role... | PUBLIC];
+~~~
+
+ 반대로 그 권한을 뺏는 명령어는 REVOKE이다.
+
+~~~mysql
+REVOKE {privilege [, privilege...] | ALL}
+ON object
+FROM {user[, user...] | role | PUBLIC}
+[CASCADE CONSTRAINTS] 
+~~~
+
+
+
+### 5-2. 권한
+
+SYSTEM PRIVILEGE: DBA만 부여할 수 있는 권한을 의마한다.
+
+- CREATE SESSION 
+- CREATE TABLE
+- CREATE SEQUENCE
+- CREATE VIEW
+- CREATE PROCEDURE
+
+ROLE: 특정 권한과 그 권한들을 부여받은 사용자들이라고 할 수 있다.
+
+OBJECT PRIVILEGE: 자신의 스키마에 속해 있는 Object(Table, View, Sequence, Procedure 등)에 대해 타 유저에게 부여하는 권한이다.
+
+
+
+참고: GRANT, REVOKE : DCL(Data Control Language) [:bookmark_tabs:](http://tawool.tistory.com/146)
+
+****
+
